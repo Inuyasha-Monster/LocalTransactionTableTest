@@ -19,6 +19,7 @@ namespace Productor
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseUrls("http://localhost:8888")
                 .UseStartup<Startup>()
                 .Build();

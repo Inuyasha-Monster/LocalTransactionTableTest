@@ -6,11 +6,15 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="Quartz\" />
+    <Folder Include="Interceptor\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspectCore.Core" Version="0.3.1" />
+    <PackageReference Include="Castle.Core" Version="4.2.1" />
     <PackageReference Include="EasyNetQ" Version="2.3.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
