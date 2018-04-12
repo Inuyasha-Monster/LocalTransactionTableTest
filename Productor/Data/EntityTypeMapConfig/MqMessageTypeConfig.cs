@@ -12,7 +12,7 @@ namespace Productor.Data.EntityTypeMapConfig
         public void Configure(EntityTypeBuilder<MqMessage> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).UseMySqlIdentityColumn();
+            builder.Property(x => x.Id).HasColumnType("char(36)");
             builder.Property(x => x.MessageAssemblyName).IsRequired().HasMaxLength(200);
             builder.Property(x => x.MessageClassFullName).IsRequired().HasMaxLength(200);
             builder.Property(x => x.Body).IsRequired().HasMaxLength(4000);

@@ -12,7 +12,7 @@ namespace Productor.Data.EntityTypeMapConfig
         public void Configure(EntityTypeBuilder<OrderDetail> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).UseMySqlIdentityColumn();
+            builder.Property(x => x.Id).HasColumnType("char(36)");
             builder.Property(x => x.OrderNo).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Sku).IsRequired().HasMaxLength(50);
             builder.Property(x => x.SkuName).IsRequired().HasMaxLength(50);
