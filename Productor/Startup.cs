@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspectCore.Configuration;
+using AspectCore.Extensions.DependencyInjection;
+using AspectCore.Injector;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Productor.Data;
+using Productor.Interceptor;
 
 namespace Productor
 {
@@ -32,7 +36,7 @@ namespace Productor
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             var mvcBuilder = services.AddMvc(x =>
             {
@@ -52,6 +56,20 @@ namespace Productor
                 builderDb.UseMySql(connectionStr);
             });
 
+
+            //添加你的服务注册到services...
+
+
+
+            //将IServiceCollection的服务添加到ServiceContainer容器中
+            var container = services.ToServiceContainer();
+
+            container.Configure(config =>
+            {
+                config.Interceptors.AddTyped<AspecLogExceptionInterceptor>();
+            });
+
+            return container.Build();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

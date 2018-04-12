@@ -7,11 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Productor.Interceptor
 {
-    public class LogExceptionInterceptor : IInterceptor
+    public class CastleLogExceptionInterceptor : IInterceptor
     {
-        private readonly ILogger<LogExceptionInterceptor> _logger;
+        private readonly ILogger<CastleLogExceptionInterceptor> _logger;
 
-        public LogExceptionInterceptor(ILogger<LogExceptionInterceptor> logger)
+        public CastleLogExceptionInterceptor(ILogger<CastleLogExceptionInterceptor> logger)
         {
             _logger = logger;
         }
