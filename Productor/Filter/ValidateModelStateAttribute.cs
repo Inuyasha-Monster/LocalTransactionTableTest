@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Productor.Common;
@@ -27,7 +28,7 @@ namespace Productor.Filter
                 // 记录客户端错误消息
                 var logger = context.HttpContext.RequestServices
                     .GetRequiredService<ILogger<ValidateModelStateAttribute>>();
-                logger.LogInformation(list.First());
+                logger.LogDebug(list.First());
 
                 context.Result = new JsonResult(new ApiResult(false)
                 {
