@@ -7,13 +7,14 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="Quartz\" />
-    <Folder Include="AutoMapper\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AspectCore.Core" Version="0.3.1" />
     <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.3.1" />
     <PackageReference Include="Autofac" Version="4.7.0" />
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="Castle.Core" Version="4.2.1" />
     <PackageReference Include="EasyNetQ" Version="2.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />

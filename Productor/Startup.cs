@@ -6,6 +6,7 @@ using AspectCore.Configuration;
 using AspectCore.Extensions.DependencyInjection;
 using AspectCore.Injector;
 using Autofac;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Productor.Data;
+using Productor.Filter;
 using Productor.Interceptor;
 
 namespace Productor
@@ -38,9 +40,12 @@ namespace Productor
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
+
             var mvcBuilder = services.AddMvc(x =>
             {
-                x.Filters.Add<ExceptionFilterAttribute>();
+                //x.Filters.Add<ExceptionFilterAttribute>();
+                x.Filters.Add<GlobalExceptionFilter>();
             }).AddControllersAsServices();
 
             mvcBuilder.AddJsonOptions(x =>
