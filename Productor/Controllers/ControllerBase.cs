@@ -32,7 +32,8 @@ namespace Productor.Controllers
         /// 表示返回正确的操作成功状态
         /// </summary>
         /// <returns></returns>
-        public JsonResult Json()
+        [NonAction]
+        protected JsonResult Json()
         {
             return base.Json(new ApiResult(true));
         }

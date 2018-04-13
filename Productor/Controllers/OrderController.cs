@@ -26,12 +26,14 @@ namespace Productor.Controllers
         }
 
         [HttpGet]
+        [AcceptVerbs("GET")]
         public IActionResult Get([FromQuery]Guid id)
         {
             return Json(_orderService.GetOrderInfo(id));
         }
 
         [HttpPost]
+        [AcceptVerbs("POST")]
         public IActionResult Create([FromBody]OrderInput input)
         {
             _orderService.CreateOrder(input);

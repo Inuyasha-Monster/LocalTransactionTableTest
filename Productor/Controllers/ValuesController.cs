@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Productor.Controllers
 {
+    [NonController]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
