@@ -21,6 +21,7 @@ using Productor.Data;
 using Productor.Filter;
 using Productor.Interceptor;
 using Productor.Service;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Productor
 {
@@ -60,6 +61,24 @@ namespace Productor
                 x.SerializerSettings.DateFormatString = "yyyy-MM-dd hh:mm:ss";
             });
 
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "Order Open Api",
+                    Version = "v1",
+                    Description = "Order Open Api",
+                    TermsOfService = "None",
+                    Contact = new Contact()
+                    {
+                        Name = "djlnet",
+                        Email = "972417907@qq.com",
+                        Url = "djlnet.com"
+                    }
+                });
+            });
+
             services.AddDbContext<ProductDbContext>(builderDb =>
             {
                 var connectionStr = Configuration.GetConnectionString("Mysql");
@@ -92,6 +111,15 @@ namespace Productor
             }
             loggerFactory.AddConsole(LogLevel.Trace);
             loggerFactory.AddLog4Net("log4net.config");
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Open Api V1");
+            });
 
             app.UseMvc();
         }

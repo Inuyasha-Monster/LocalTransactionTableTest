@@ -32,7 +32,7 @@ namespace Productor.Controllers
         }
 
         [HttpPost]
-        public IActionResult Order([FromBody]OrderInput input)
+        public IActionResult Create([FromBody]OrderInput input)
         {
             _orderService.CreateOrder(input);
             return Json();

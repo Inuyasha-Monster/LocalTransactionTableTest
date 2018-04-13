@@ -8,7 +8,7 @@ using Productor.Common;
 
 namespace Productor.Controllers
 {
-    public class ControllerBase : Controller
+    public abstract class ControllerBase : Controller
     {
         public override JsonResult Json(object data)
         {
