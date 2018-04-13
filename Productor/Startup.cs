@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AspectCore.Configuration;
 using AspectCore.Extensions.DependencyInjection;
@@ -74,9 +76,19 @@ namespace Productor
                     {
                         Name = "djlnet",
                         Email = "972417907@qq.com",
-                        Url = "djlnet.com"
+                        Url = "http://www.djlnet.com"
+                    },
+                    License = new License
+                    {
+                        Name = "Djlnet License",
+                        Url = "http://djlnet.com/license"
                     }
                 });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             services.AddDbContext<ProductDbContext>(builderDb =>
@@ -111,6 +123,8 @@ namespace Productor
             }
             loggerFactory.AddConsole(LogLevel.Trace);
             loggerFactory.AddLog4Net("log4net.config");
+
+            app.UseStaticFiles();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

@@ -13,6 +13,9 @@ using Productor.Service;
 
 namespace Productor.Controllers
 {
+    /// <summary>
+    /// 订单服务
+    /// </summary>
     [Route("api/[controller]")]
     public class OrderController : ControllerBase
     {
@@ -25,6 +28,11 @@ namespace Productor.Controllers
             _orderService = orderService;
         }
 
+        /// <summary>
+        /// 获取订单头和明细
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [AcceptVerbs("GET")]
         public IActionResult Get([FromQuery]Guid id)
@@ -32,6 +40,11 @@ namespace Productor.Controllers
             return Json(_orderService.GetOrderInfo(id));
         }
 
+        /// <summary>
+        /// 创建订单
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [AcceptVerbs("POST")]
         public IActionResult Create([FromBody]OrderInput input)

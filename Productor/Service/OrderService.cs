@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspectCore.DynamicProxy.Parameters;
 using AutoMapper;
 using Message;
 using Newtonsoft.Json;
