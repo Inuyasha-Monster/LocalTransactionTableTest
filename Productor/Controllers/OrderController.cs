@@ -26,9 +26,9 @@ namespace Productor.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(string orderNo)
+        public IActionResult Get([FromQuery]Guid id)
         {
-            return Json(_orderService.GetOrderInfo(orderNo));
+            return Json(_orderService.GetOrderInfo(id));
         }
 
         [HttpPost]

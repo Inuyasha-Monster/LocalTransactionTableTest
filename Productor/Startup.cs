@@ -73,7 +73,7 @@ namespace Productor
 
             container.Configure(config =>
             {
-                config.Interceptors.AddTyped<AspecLogExceptionInterceptor>();
+                //config.Interceptors.AddTyped<AspecLogExceptionInterceptor>();
             });
 
             return container.Build();

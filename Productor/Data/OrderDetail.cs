@@ -8,7 +8,7 @@ namespace Productor.Data
     public class OrderDetail
     {
         public Guid Id { get; set; }
-        public string OrderNo { get; set; }
+        public Guid ParentId { get; set; }
         public string Sku { get; set; }
         public string SkuName { get; set; }
         public int Quantity { get; set; }

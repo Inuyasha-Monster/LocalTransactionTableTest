@@ -14,7 +14,6 @@ namespace Productor.Data.EntityTypeMapConfig
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnType("char(36)");
             builder.Property(x => x.AppUser).IsRequired().HasMaxLength(20);
-            builder.Property(x => x.No).IsRequired().HasMaxLength(50);
             builder.Property(x => x.CreateTime).IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.Amount).IsRequired().HasColumnName("Amount");
         }

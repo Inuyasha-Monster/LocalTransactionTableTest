@@ -13,7 +13,7 @@ namespace Productor.Data.EntityTypeMapConfig
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnType("char(36)");
-            builder.Property(x => x.OrderNo).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.ParentId).IsRequired().HasColumnType("char(36)");
             builder.Property(x => x.Sku).IsRequired().HasMaxLength(50);
             builder.Property(x => x.SkuName).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Quantity).IsRequired().HasColumnName("Quantity");
