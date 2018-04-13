@@ -90,7 +90,7 @@ namespace Productor
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            loggerFactory.AddConsole(LogLevel.Trace);
             loggerFactory.AddLog4Net("log4net.config");
 
             app.UseMvc();
