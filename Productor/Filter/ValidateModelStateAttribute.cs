@@ -18,9 +18,9 @@ namespace Productor.Filter
         {
             if (!context.ModelState.IsValid)
             {
-                List<string> list = (from modelState in context.ModelState.Values
-                                     from error in modelState.Errors
-                                     select error.ErrorMessage).ToList();
+                var list = (from modelState in context.ModelState.Values
+                            from error in modelState.Errors
+                            select new { error.ErrorMessage, error.Exception }).ToList();
 
                 //Also add exceptions.
                 //list.AddRange(from modelState in context.ModelState.Values from error in modelState.Errors select error.Exception.ToString());
@@ -28,11 +28,11 @@ namespace Productor.Filter
                 // 记录客户端错误消息
                 var logger = context.HttpContext.RequestServices
                     .GetRequiredService<ILogger<ValidateModelStateAttribute>>();
-                logger.LogDebug(list.First());
+                logger.LogDebug(list.First().Exception, list.First().ErrorMessage);
 
                 context.Result = new JsonResult(new ApiResult(false)
                 {
-                    Message = list.First()
+                    Message = list.First().ErrorMessage
                 });
             }
 
