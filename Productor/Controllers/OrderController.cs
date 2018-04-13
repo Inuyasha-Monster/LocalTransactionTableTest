@@ -22,7 +22,7 @@ namespace Productor.Controllers
         }
 
         [HttpPost]
-        public IActionResult Order(OrderInput input)
+        public IActionResult Order([FromBody]OrderInput input)
         {
             return Ok();
         }

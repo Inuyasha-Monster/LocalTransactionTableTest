@@ -7,5 +7,6 @@ namespace Productor.Model
 {
     public class OrderInput
     {
+
     }
 }
