@@ -14,21 +14,21 @@ using Productor.Service;
 namespace Productor.Controllers
 {
     [Route("api/[controller]")]
-    public class OrderController : Controller
+    public class OrderController : ControllerBase
     {
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         private readonly IOrderService _orderService;
 
-        public OrderController(IMapper mapper,IOrderService orderService)
+        public OrderController(IOrderService orderService)
         {
-            _mapper = mapper;
+            //_mapper = mapper;
             _orderService = orderService;
         }
 
         [HttpGet]
         public IActionResult Get(string orderNo)
         {
-            OrderOutput output = new OrderOutput();
+            OrderOutput output = _orderService.GetOrderInfo(orderNo);
             return Json(output);
         }
 

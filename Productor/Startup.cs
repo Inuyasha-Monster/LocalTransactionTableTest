@@ -20,6 +20,7 @@ using Newtonsoft.Json.Serialization;
 using Productor.Data;
 using Productor.Filter;
 using Productor.Interceptor;
+using Productor.Service;
 
 namespace Productor
 {
@@ -63,7 +64,8 @@ namespace Productor
 
 
             //添加你的服务注册到services...
-
+            //services.AddScoped(typeof(IOrderService), typeof(OrderService));
+            services.AddScoped<IOrderService, OrderService>();
 
 
             //将IServiceCollection的服务添加到ServiceContainer容器中
