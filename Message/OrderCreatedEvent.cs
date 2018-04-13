@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Productor.Model
+namespace Message
 {
-    public class OrderOutput
+    [Serializable]
+    public class OrderCreatedEvent
     {
-        public OrderOutput()
+        public OrderCreatedEvent()
         {
-            Details = new List<OrderDetailOutput>();
+            CreateTime = DateTime.Now;
         }
-
         public Guid Id { get; set; }
         public decimal Amount { get; set; }
         public DateTime CreateTime { get; set; }
         public string AppUser { get; set; }
 
-        public IList<OrderDetailOutput> Details { get; set; }
+        public IList<OrderDetail> Details { get; set; }
     }
 
-    public class OrderDetailOutput
+    public class OrderDetail
     {
+        public OrderDetail()
+        {
+            CreateTime = DateTime.Now;
+        }
         public Guid Id { get; set; }
         public Guid ParentId { get; set; }
         public string Sku { get; set; }

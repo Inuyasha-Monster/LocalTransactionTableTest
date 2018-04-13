@@ -28,6 +28,10 @@ namespace Productor.Controllers
             return base.Json(apiResult, serializerSettings);
         }
 
+        /// <summary>
+        /// 表示返回正确的操作成功状态
+        /// </summary>
+        /// <returns></returns>
         public JsonResult Json()
         {
             return base.Json(new ApiResult(true));

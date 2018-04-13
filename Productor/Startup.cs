@@ -41,12 +41,16 @@ namespace Productor
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper();
+            services.AddAutoMapper(x =>
+            {
+                x.AllowNullCollections = true;
+            });
 
             var mvcBuilder = services.AddMvc(x =>
             {
                 //x.Filters.Add<ExceptionFilterAttribute>();
                 x.Filters.Add<GlobalExceptionFilter>();
+                x.Filters.Add<ValidateModelStateAttribute>();
             }).AddControllersAsServices();
 
             mvcBuilder.AddJsonOptions(x =>

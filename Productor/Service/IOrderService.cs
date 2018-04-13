@@ -6,5 +6,6 @@ namespace Productor.Service
     public interface IOrderService
     {
         OrderOutput GetOrderInfo(Guid id);
+        void CreateOrder(OrderInput input);
     }
 }

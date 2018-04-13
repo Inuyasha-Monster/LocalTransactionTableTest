@@ -32,9 +32,16 @@ namespace Productor.Filter
             }
             else
             {
-                errorJsonResult.Message = "内部出现未知异常";
+                if (context.Exception is KnownException)
+                {
+                    errorJsonResult.Message = context.Exception.Message;
+                }
+                else
+                {
+                    errorJsonResult.Message = "内部出现未知异常";
+                    _logger.LogError(context.Exception, context.Exception.Message);
+                }
             }
-            _logger.LogError(context.Exception, context.Exception.Message);
             context.Result = new JsonResult(errorJsonResult);
         }
     }

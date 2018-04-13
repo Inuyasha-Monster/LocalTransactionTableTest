@@ -9,6 +9,10 @@ namespace Productor.Data
 {
     public class MqMessage
     {
+        public MqMessage()
+        {
+            Id = Guid.NewGuid();
+        }
         public Guid Id { get; set; }
         public string MessageAssemblyName { get; set; }
         public string MessageClassFullName { get; set; }
