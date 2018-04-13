@@ -10,7 +10,9 @@ namespace Productor.Common
     {
         public ApiResult()
         {
-
+            this.Message = string.Empty;
+            this.Successed = true;
+            this.DevelopMessage = string.Empty;
         }
 
         public ApiResult(bool successed = true)
@@ -26,6 +28,13 @@ namespace Productor.Common
 
     public class ApiResult : ApiResult<object>
     {
+        public ApiResult()
+        {
+            this.Message = string.Empty;
+            this.Successed = true;
+            this.DevelopMessage = string.Empty;
+        }
+
         public ApiResult(bool successed = true) : base(successed)
         {
 

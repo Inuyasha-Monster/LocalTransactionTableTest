@@ -28,14 +28,13 @@ namespace Productor.Controllers
         [HttpGet]
         public IActionResult Get(string orderNo)
         {
-            OrderOutput output = _orderService.GetOrderInfo(orderNo);
-            return Json(output);
+            return Json(_orderService.GetOrderInfo(orderNo));
         }
 
         [HttpPost]
         public IActionResult Order([FromBody]OrderInput input)
         {
-            return Ok();
+            return Json();
         }
     }
 }
