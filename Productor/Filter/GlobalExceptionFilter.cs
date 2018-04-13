@@ -29,6 +29,7 @@ namespace Productor.Filter
             {
                 errorJsonResult.Message = context.Exception.Message;
                 errorJsonResult.DevelopMessage = context.Exception.StackTrace;
+                _logger.LogDebug(context.Exception, context.Exception.Message);
             }
             else
             {

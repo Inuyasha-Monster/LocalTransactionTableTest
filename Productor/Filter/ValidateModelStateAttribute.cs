@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Productor.Common;
 
 namespace Productor.Filter
@@ -22,8 +24,10 @@ namespace Productor.Filter
                 //Also add exceptions.
                 //list.AddRange(from modelState in context.ModelState.Values from error in modelState.Errors select error.Exception.ToString());
 
-                // 默认拿出来第一个错误消息返回
-
+                // 记录客户端错误消息
+                var logger = context.HttpContext.RequestServices
+                    .GetRequiredService<ILogger<ValidateModelStateAttribute>>();
+                logger.LogInformation(list.First());
 
                 context.Result = new JsonResult(new ApiResult(false)
                 {
