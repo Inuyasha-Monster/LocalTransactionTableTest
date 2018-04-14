@@ -15,6 +15,7 @@ namespace Productor.Data
             CreateTime = DateTime.Now;
         }
         public Guid Id { get; set; }
+        public bool IsPublished { get; set; }
         public string MessageAssemblyName { get; set; }
         public string MessageClassFullName { get; set; }
         public string Body { get; set; }
