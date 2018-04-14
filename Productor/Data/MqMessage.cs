@@ -12,6 +12,7 @@ namespace Productor.Data
         public MqMessage()
         {
             Id = Guid.NewGuid();
+            CreateTime = DateTime.Now;
         }
         public Guid Id { get; set; }
         public string MessageAssemblyName { get; set; }

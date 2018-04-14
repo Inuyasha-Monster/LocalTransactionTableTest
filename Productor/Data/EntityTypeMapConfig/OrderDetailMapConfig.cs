@@ -17,7 +17,7 @@ namespace Productor.Data.EntityTypeMapConfig
             builder.Property(x => x.Sku).IsRequired().HasMaxLength(50);
             builder.Property(x => x.SkuName).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Quantity).IsRequired().HasColumnName("Quantity");
-            builder.Property(x => x.Price).IsRequired().HasColumnName("Price");
+            builder.Property(x => x.Price).IsRequired().HasColumnType("DECIMAL(18,2)").HasColumnName("Price");
             builder.Property(x => x.CreateTime).IsRequired().ValueGeneratedOnAdd();
         }
     }

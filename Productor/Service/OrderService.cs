@@ -46,7 +46,7 @@ namespace Productor.Service
             var dbMessage = new MqMessage()
             {
                 Body = JsonConvert.SerializeObject(msg),
-                MessageAssemblyName = typeof(OrderCreatedEvent).Assembly.FullName,
+                MessageAssemblyName = typeof(OrderCreatedEvent).Assembly.GetName().Name,
                 MessageClassFullName = msg.GetType().FullName
             };
             _dbContext.Add(dbMessage);
