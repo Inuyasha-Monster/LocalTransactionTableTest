@@ -64,32 +64,32 @@ namespace Productor
             });
 
             // Register the Swagger generator, defining one or more Swagger documents
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new Info
-            //    {
-            //        Title = "Order Open Api",
-            //        Version = "v1",
-            //        Description = "Order Open Api",
-            //        TermsOfService = "None",
-            //        Contact = new Contact()
-            //        {
-            //            Name = "djlnet",
-            //            Email = "972417907@qq.com",
-            //            Url = "http://www.djlnet.com"
-            //        },
-            //        License = new License
-            //        {
-            //            Name = "Djlnet License",
-            //            Url = "http://djlnet.com/license"
-            //        }
-            //    });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "Order Open Api",
+                    Version = "v1",
+                    Description = "Order Open Api",
+                    TermsOfService = "None",
+                    Contact = new Contact()
+                    {
+                        Name = "djlnet",
+                        Email = "972417907@qq.com",
+                        Url = "http://www.djlnet.com"
+                    },
+                    License = new License
+                    {
+                        Name = "Djlnet License",
+                        Url = "http://djlnet.com/license"
+                    }
+                });
 
-            //    // Set the comments path for the Swagger JSON and UI.
-            //    var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
-            //    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            //    c.IncludeXmlComments(xmlPath);
-            //});
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
 
             services.AddDbContext<ProductDbContext>(builderDb =>
             {
@@ -115,7 +115,7 @@ namespace Productor
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -126,16 +126,31 @@ namespace Productor
 
             app.UseStaticFiles();
 
-            //// Enable middleware to serve generated Swagger as a JSON endpoint.
-            //app.UseSwagger();
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
 
-            //// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Open Api V1");
-            //});
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Open Api V1");
+            });
 
             app.UseMvc();
+
+            lifetime.ApplicationStarted.Register(() =>
+            {
+               
+            });
+
+            lifetime.ApplicationStopping.Register(() =>
+            {
+
+            });
+
+            lifetime.ApplicationStopped.Register(() =>
+            {
+
+            });
         }
     }
 }
