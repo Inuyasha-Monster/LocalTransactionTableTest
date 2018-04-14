@@ -10,6 +10,7 @@ namespace Productor.Data
         public OrderDetail()
         {
             Id = Guid.NewGuid();
+            CreateTime = DateTime.Now;
         }
         public Guid Id { get; set; }
         public Guid ParentId { get; set; }

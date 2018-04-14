@@ -10,6 +10,7 @@ namespace Productor.Data
         public OrderHeader()
         {
             Id = Guid.NewGuid();
+            CreateTime = DateTime.Now;
         }
         public Guid Id { get; set; }
         public decimal Amount { get; set; }

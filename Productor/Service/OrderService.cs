@@ -6,6 +6,7 @@ using AspectCore.DynamicProxy.Parameters;
 using AutoMapper;
 using Message;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Productor.Common;
 using Productor.Data;
 using Productor.Model;
@@ -45,7 +46,11 @@ namespace Productor.Service
             msg.Details = _mapper.Map<List<Message.OrderDetail>>(details);
             var dbMessage = new MqMessage()
             {
-                Body = JsonConvert.SerializeObject(msg),
+                Body = JsonConvert.SerializeObject(msg, new JsonSerializerSettings()
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    DateFormatString = "yyyy-MM-dd hh:mm:ss"
+                }),
                 MessageAssemblyName = typeof(OrderCreatedEvent).Assembly.GetName().Name,
                 MessageClassFullName = msg.GetType().FullName
             };
