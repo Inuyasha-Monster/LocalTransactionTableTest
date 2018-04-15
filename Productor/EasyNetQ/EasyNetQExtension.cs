@@ -19,9 +19,8 @@ namespace Productor.EasyNetQ
             var bus = RabbitHutch.CreateBus(rabbitMqConnection);
             service.AddSingleton<IBus>(bus);
             service.AddSingleton<IAutoSubscriberMessageDispatcher, ProductorMessageDispatcher>(serviceProvider => new ProductorMessageDispatcher(serviceProvider, serviceProvider.GetRequiredService<ILogger<ProductorMessageDispatcher>>()));
-            var consumerTypes = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => x.GetInterfaces().Any(i => i.IsGenericTypeDefinition &&
-                                                       i.GetGenericTypeDefinition() == typeof(IConsume<>)));
+            // todo: Error:如下方式扫描程序集指定类型失败，找不到需要查找类型 已经测试 GetCallingAssembly/GetExecutingAssembly
+            var consumerTypes = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.IsClass && !x.IsAbstract).Where(x => x.GetInterfaces().Any(t => t == typeof(IConsume<>)));
             foreach (var consumerType in consumerTypes)
             {
                 service.AddTransient(consumerType);
@@ -29,8 +28,7 @@ namespace Productor.EasyNetQ
             }
 
             var consumerAsyncTypes = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => x.GetInterfaces().Any(i => i.IsGenericTypeDefinition &&
-                                                       i.GetGenericTypeDefinition() == typeof(IConsumeAsync<>)));
+                .Where(x => x.GetInterfaces().Any(t => t == typeof(IConsumeAsync<>)));
 
             foreach (var consumerAsyncType in consumerAsyncTypes)
             {
