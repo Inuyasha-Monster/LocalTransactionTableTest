@@ -23,6 +23,7 @@ using Productor.Data;
 using Productor.Filter;
 using Productor.Interceptor;
 using Productor.Service;
+using Productor.Swagger;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Productor
@@ -63,37 +64,12 @@ namespace Productor
                 x.SerializerSettings.DateFormatString = "yyyy-MM-dd hh:mm:ss";
             });
 
-            // Register the Swagger generator, defining one or more Swagger documents
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info
-                {
-                    Title = "Order Open Api",
-                    Version = "v1",
-                    Description = "Order Open Api",
-                    TermsOfService = "None",
-                    Contact = new Contact()
-                    {
-                        Name = "djlnet",
-                        Email = "972417907@qq.com",
-                        Url = "http://www.djlnet.com"
-                    },
-                    License = new License
-                    {
-                        Name = "Djlnet License",
-                        Url = "http://djlnet.com/license"
-                    }
-                });
-
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
-            });
+            services.AddSwagger();
 
             services.AddDbContext<ProductDbContext>(builderDb =>
             {
-                var connectionStr = Configuration.GetConnectionString("Mysql");
+                //var connectionStr = Configuration.GetConnectionString("Mysql");
+                var connectionStr = Configuration.GetConnectionString("LocalMysql");
                 builderDb.UseMySql(connectionStr);
             });
 
@@ -126,20 +102,13 @@ namespace Productor
 
             app.UseStaticFiles();
 
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Open Api V1");
-            });
+            app.UseSwaggerAll();
 
             app.UseMvc();
 
             lifetime.ApplicationStarted.Register(() =>
             {
-               
+
             });
 
             lifetime.ApplicationStopping.Register(() =>

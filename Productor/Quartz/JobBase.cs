@@ -18,7 +18,6 @@ namespace Productor.Quartz
             try
             {
                 return ExecuteJob(context);
-
             }
             catch (Exception exception)
             {
