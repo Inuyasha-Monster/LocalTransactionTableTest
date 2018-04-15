@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Consumer.EasyNetQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,17 +25,23 @@ namespace Consumer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddEasyNetQ(Configuration.GetConnectionString("RabbitMq"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            loggerFactory.AddConsole(LogLevel.Trace);
+            loggerFactory.AddLog4Net("log4net.config");
+
+            app.UseStaticFiles();
             app.UseMvc();
+            app.UseEasyNetQ();
         }
     }
 }

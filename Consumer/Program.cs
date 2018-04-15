@@ -19,6 +19,7 @@ namespace Consumer
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseUrls("http://localhost:9999")
                 .UseStartup<Startup>()
                 .Build();
