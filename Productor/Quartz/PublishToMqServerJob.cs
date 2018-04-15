@@ -9,6 +9,7 @@ namespace Productor.Quartz
 {
     [JobDescriptionAttribute(Key = "PublishToMqServerJob", Group = "Productor")]
     [JobIntervalTriggerAttribute(Key = "PublishToMqServerJob_Trigger", Group = "Productor", IntervalInSeconds = 30, StartNow = true)]
+    [IgnoreJobAttribute]
     public class PublishToMqServerJob : JobBase
     {
         private readonly ILogger<PublishToMqServerJob> _logger;

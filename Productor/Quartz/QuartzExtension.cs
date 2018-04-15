@@ -107,7 +107,7 @@ namespace Productor.Quartz
                     }
                     trigger = temp.Build();
                 }
-                scheduler.ScheduleJob(jobDetail, trigger);
+                scheduler.ScheduleJob(jobDetail, trigger).Wait();
             }
         }
     }

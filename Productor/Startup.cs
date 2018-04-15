@@ -22,6 +22,7 @@ using Newtonsoft.Json.Serialization;
 using Productor.Data;
 using Productor.Filter;
 using Productor.Interceptor;
+using Productor.Quartz;
 using Productor.Service;
 using Productor.Swagger;
 using Swashbuckle.AspNetCore.Swagger;
@@ -78,6 +79,7 @@ namespace Productor
             //services.AddScoped(typeof(IOrderService), typeof(OrderService));
             services.AddScoped<IOrderService, OrderService>();
 
+            services.AddQuartz();
 
             //将IServiceCollection的服务添加到ServiceContainer容器中
             var container = services.ToServiceContainer();
@@ -105,6 +107,8 @@ namespace Productor
             app.UseSwaggerAll();
 
             app.UseMvc();
+
+            app.UseQuartz();
 
             lifetime.ApplicationStarted.Register(() =>
             {
