@@ -30,10 +30,12 @@ namespace Productor.Quartz
             service.AddSingleton<IJobFactory, ProductorJobFactory>(provider => new ProductorJobFactory(provider.GetService<ILogger<ProductorJobFactory>>(), provider));
 
             // registe all jobs to Iservicecollection
-            var jobs = typeof(JobBase).Assembly.GetTypes().Where(x => x.BaseType == typeof(JobBase) || x.GetInterfaces().Any(i => i == typeof(IJob)));
+            var jobs = typeof(JobBase).Assembly.GetTypes().Where(x => x.BaseType == typeof(JobBase) || x.GetInterfaces().Any(i => i == typeof(IJob))).Where(x => x.GetCustomAttribute<IgnoreJobAttribute>() == null)
+                .Where(x => x.IsAbstract == false);
 
             foreach (var job in jobs)
             {
+                service.AddTransient(job);
                 service.AddTransient(typeof(IJob), job);
             }
 
