@@ -19,7 +19,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Productor.Common;
 using Productor.Data;
+using Productor.EasyNetQ;
 using Productor.Filter;
 using Productor.Interceptor;
 using Productor.Quartz;
@@ -79,6 +81,10 @@ namespace Productor
             //services.AddScoped(typeof(IOrderService), typeof(OrderService));
             services.AddScoped<IOrderService, OrderService>();
 
+            services.AddEasyNetQ(Configuration.GetConnectionString("RabbitMq"));
+
+            services.AddSingleton<IEventBus, RabbitMqEventBus>();
+
             services.AddQuartz();
 
             //将IServiceCollection的服务添加到ServiceContainer容器中
@@ -107,6 +113,8 @@ namespace Productor
             app.UseSwaggerAll();
 
             app.UseMvc();
+
+            app.UseEasyNetQ();
 
             app.UseQuartz();
 

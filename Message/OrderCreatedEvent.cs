@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace Message
 {
     [Serializable]
-    public class OrderCreatedEvent
+    public class OrderCreatedEvent : AbstractEvent
     {
-        public OrderCreatedEvent()
+        public OrderCreatedEvent() : base()
         {
             CreateTime = DateTime.Now;
         }
