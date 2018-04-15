@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ using Quartz;
 
 namespace Productor.Quartz
 {
-    [JobDescriptionAttribute(Key = "PublishToMqServerJob", Group = "Productor")]
-    [JobIntervalTriggerAttribute(Key = "PublishToMqServerJob_Trigger", Group = "Productor", IntervalInSeconds = 30, StartNow = true)]
-    [IgnoreJobAttribute]
+    [JobDescription(Key = "PublishToMqServerJob", Group = "Productor")]
+    [JobIntervalTrigger(Key = "PublishToMqServerJob_Trigger", Group = "Productor", IntervalInSeconds = 10, StartNow = true, IsRepeatForever = true)]
+    //[IgnoreJobAttribute]
     public class PublishToMqServerJob : JobBase
     {
         private readonly ILogger<PublishToMqServerJob> _logger;
@@ -33,6 +34,7 @@ namespace Productor.Quartz
 
         protected override async Task ExecuteJob(IJobExecutionContext context)
         {
+            Debug.WriteLine("start");
             using (var scope = _serviceProvider.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
@@ -51,7 +53,7 @@ namespace Productor.Quartz
                             _eventBus.Publish(type, publishMsg);
                             msg.IsPublished = true;
                         }
-                        dbContext.SaveChanges();
+                        await dbContext.SaveChangesAsync();
                         trans.Commit();
                     }
                     catch (Exception)
@@ -61,6 +63,7 @@ namespace Productor.Quartz
                     }
                 }
             }
+            Debug.WriteLine("end");
         }
     }
 }

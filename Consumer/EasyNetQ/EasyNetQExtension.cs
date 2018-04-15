@@ -18,6 +18,25 @@ namespace Consumer.EasyNetQ
             var bus = RabbitHutch.CreateBus(rabbitMqConnection);
             service.AddSingleton<IBus>(bus);
             service.AddSingleton<IAutoSubscriberMessageDispatcher, ConsumerMessageDispatcher>(serviceProvider => new ConsumerMessageDispatcher(serviceProvider, serviceProvider.GetRequiredService<ILogger<ConsumerMessageDispatcher>>()));
+
+            var consumerTypes = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.IsClass && !x.IsAbstract)
+                .Where(x => x.GetInterfaces().Any(i => i.IsGenericTypeDefinition &&
+                                                       i.GetGenericTypeDefinition() == typeof(IConsume<>)));
+            foreach (var consumerType in consumerTypes)
+            {
+                service.AddTransient(consumerType);
+                service.AddTransient(typeof(IConsume<>), consumerType);
+            }
+
+            var consumerAsyncTypes = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.IsClass && !x.IsAbstract)
+                .Where(x => x.GetInterfaces().Any(i => i.IsGenericTypeDefinition &&
+                                                       i.GetGenericTypeDefinition() == typeof(IConsumeAsync<>)));
+
+            foreach (var consumerAsyncType in consumerAsyncTypes)
+            {
+                service.AddTransient(consumerAsyncType);
+                service.AddTransient(typeof(IConsumeAsync<>), consumerAsyncType);
+            }
         }
 
         public static void AddEasyNetQ(this IServiceCollection service, Func<string> getRabbitMqConneciton)

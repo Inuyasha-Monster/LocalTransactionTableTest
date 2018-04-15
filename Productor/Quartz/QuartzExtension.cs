@@ -82,7 +82,7 @@ namespace Productor.Quartz
                 }
                 var jobDetail = jobBuilder.Build();
 
-                ITrigger trigger = null;
+                ITrigger trigger;
                 var triggerDesc = job.GetType().GetCustomAttribute<JobIntervalTriggerAttribute>();
                 if (triggerDesc == null)
                 {
