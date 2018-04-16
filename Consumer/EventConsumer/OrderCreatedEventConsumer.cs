@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Consumer.EventConsumer
 {
-    public class OrderCreatedEventConsumer : IConsume<OrderCreatedEvent>
+    public class OrderCreatedEventConsumer : EasyNetQConsumerBase<OrderCreatedEvent>
     {
         private readonly ILogger<OrderCreatedEventConsumer> _logger;
 
@@ -19,7 +19,9 @@ namespace Consumer.EventConsumer
             _logger = logger;
         }
 
-        public void Consume(OrderCreatedEvent message)
+        protected override ILogger Logger => _logger;
+
+        protected override void ConsumeSync(OrderCreatedEvent message)
         {
             _logger.LogDebug(JsonConvert.SerializeObject(message));
         }

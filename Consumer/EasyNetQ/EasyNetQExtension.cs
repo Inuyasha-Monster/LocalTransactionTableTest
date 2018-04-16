@@ -19,22 +19,25 @@ namespace Consumer.EasyNetQ
             var bus = RabbitHutch.CreateBus(rabbitMqConnection);
             service.AddSingleton<IBus>(bus);
             service.AddSingleton<IAutoSubscriberMessageDispatcher, ConsumerMessageDispatcher>(serviceProvider => new ConsumerMessageDispatcher(serviceProvider, serviceProvider.GetRequiredService<ILogger<ConsumerMessageDispatcher>>()));
-            // todo: Error:如下方式扫描程序集指定类型失败，找不到需要查找类型 已经测试 GetCallingAssembly/GetExecutingAssembly/typeof(OrderCreatedEventConsumer) 无果
-            var consumerTypes = typeof(OrderCreatedEventConsumer).Assembly.GetTypes().Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => x.GetInterfaces().Any(t => t == typeof(IConsume<>)));
+
+            var consumerTypes = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(x => x.IsClass && !x.IsAbstract && !x.IsInterface)
+                .Where(x => x.BaseType.Name == typeof(EasyNetQConsumerBase<>).Name ||
+                            x.GetInterfaces().Any(t => t.Name == typeof(IConsume<>).Name));
+
             foreach (var consumerType in consumerTypes)
             {
                 service.AddTransient(consumerType);
-                service.AddTransient(typeof(IConsume<>), consumerType);
+                //service.AddTransient(typeof(IConsume<>), consumerType);
             }
 
-            var consumerAsyncTypes = typeof(OrderCreatedEventConsumer).Assembly.GetTypes().Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => x.GetInterfaces().Any(t => t == typeof(IConsumeAsync<>)));
+            var consumerAsyncTypes = typeof(OrderCreatedEventConsumer).Assembly.GetTypes().Where(x => x.IsClass && !x.IsAbstract && !x.IsInterface)
+                .Where(x => x.GetInterfaces().Any(t => t.Name == typeof(IConsumeAsync<>).Name));
 
             foreach (var consumerAsyncType in consumerAsyncTypes)
             {
                 service.AddTransient(consumerAsyncType);
-                service.AddTransient(typeof(IConsumeAsync<>), consumerAsyncType);
+                //service.AddTransient(typeof(IConsumeAsync<>), consumerAsyncType);
             }
         }
 
