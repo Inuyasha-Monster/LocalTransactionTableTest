@@ -92,7 +92,7 @@ namespace Productor
 
             container.Configure(config =>
             {
-                //config.Interceptors.AddTyped<AspecLogExceptionInterceptor>();
+                config.Interceptors.AddTyped<LogExceptionAspectCoreInterceptorAttribute>(method => method.DeclaringType.Name.EndsWith("Service"));
             });
 
             return container.Build();

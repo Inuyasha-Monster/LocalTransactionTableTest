@@ -7,11 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Productor.Interceptor
 {
-    public class CastleLogExceptionInterceptor : IInterceptor
+    public class LogExceptionCastleInterceptor : Castle.DynamicProxy.IInterceptor
     {
-        private readonly ILogger<CastleLogExceptionInterceptor> _logger;
+        private readonly ILogger<LogExceptionCastleInterceptor> _logger;
 
-        public CastleLogExceptionInterceptor(ILogger<CastleLogExceptionInterceptor> logger)
+        public LogExceptionCastleInterceptor(ILogger<LogExceptionCastleInterceptor> logger)
         {
             _logger = logger;
         }
