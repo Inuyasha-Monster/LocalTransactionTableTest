@@ -56,7 +56,9 @@ namespace Consumer.EasyNetQ
             var bus = app.ApplicationServices.GetRequiredService<IBus>();
             var autoSubscriber = new AutoSubscriber(bus, "consumer")
             {
-                AutoSubscriberMessageDispatcher = app.ApplicationServices.GetRequiredService<IAutoSubscriberMessageDispatcher>()
+                AutoSubscriberMessageDispatcher = app.ApplicationServices.GetRequiredService<IAutoSubscriberMessageDispatcher>(),
+                GenerateSubscriptionId = x => AppDomain.CurrentDomain.FriendlyName + x.ConcreteType.Name,
+                ConfigureSubscriptionConfiguration = x => x.WithAutoDelete(true).WithDurable(true)
             };
             autoSubscriber.Subscribe(Assembly.GetExecutingAssembly());
             autoSubscriber.SubscribeAsync(Assembly.GetExecutingAssembly());
