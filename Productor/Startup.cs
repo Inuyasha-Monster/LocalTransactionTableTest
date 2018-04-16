@@ -53,6 +53,9 @@ namespace Productor
                 x.AllowNullCollections = true;
             });
 
+            // 添加进程级别内存缓存
+            services.AddMemoryCache();
+
             var mvcBuilder = services.AddMvc(x =>
             {
                 //x.Filters.Add<ExceptionFilterAttribute>();
@@ -86,6 +89,8 @@ namespace Productor
             services.AddSingleton<IEventBus, RabbitMqEventBus>();
 
             services.AddQuartz();
+
+            services.AddSingleton<CacheAspectCoreInterceptorAttribute>();
 
             //将IServiceCollection的服务添加到ServiceContainer容器中
             var container = services.ToServiceContainer();
