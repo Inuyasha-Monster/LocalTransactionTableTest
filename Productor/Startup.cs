@@ -76,7 +76,10 @@ namespace Productor
             {
                 //var connectionStr = Configuration.GetConnectionString("Mysql");
                 var connectionStr = Configuration.GetConnectionString("LocalMysql");
-                builderDb.UseMySql(connectionStr);
+                builderDb.UseMySql(connectionStr, builder =>
+                {
+                    builder.MigrationsAssembly(typeof(ProductDbContext).Assembly.GetName().Name);
+                });
             });
 
 
