@@ -9,3 +9,4 @@ todo:
 8、集成服务发现和治理
 9、集成quartz-ui管理界面
 10、集成hangfire-RAM内存模式测试
+11、集成kafka消息队列测试
