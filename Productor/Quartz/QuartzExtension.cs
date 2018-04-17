@@ -11,6 +11,8 @@ using Quartz;
 using Quartz.Impl;
 using Quartz.Simpl;
 using Quartz.Spi;
+// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
 
 namespace Productor.Quartz
 {
@@ -59,6 +61,11 @@ namespace Productor.Quartz
                 { "quartz.threadPool.threadCount", "3" }
             };
             InternalInitScheduer(service, props);
+        }
+
+        public static void AddQuartzUI()
+        {
+
         }
 
         public static void UseQuartz(this IApplicationBuilder app)
@@ -111,6 +118,11 @@ namespace Productor.Quartz
                 }
                 scheduler.ScheduleJob(jobDetail, trigger).Wait();
             }
+        }
+
+        public static void UseQuartzUI()
+        {
+
         }
     }
 }
