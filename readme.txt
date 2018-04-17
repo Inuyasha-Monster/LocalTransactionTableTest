@@ -7,3 +7,5 @@ todo:
 6、启用消费者负载均衡
 7、启用rabbitmq集群模式测试
 8、集成服务发现和治理
+9、集成quartz-ui管理界面
+10、集成hangfire-RAM内存模式测试
