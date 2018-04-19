@@ -10,3 +10,4 @@ todo:
 9、集成quartz-ui管理界面
 10、集成hangfire-RAM内存模式测试
 11、集成kafka消息队列测试
+12、关于解析dbmessage通过eventbus发送，做反射优化以及缓存提升性能
