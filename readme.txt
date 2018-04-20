@@ -11,3 +11,4 @@ todo:
 10、集成hangfire-RAM内存模式测试
 11、集成kafka消息队列测试
 12、关于解析dbmessage通过eventbus发送，做反射优化以及缓存提升性能
+13、独立出来一个 MessageDbContext 发布nuget package方便使用，在使用migration迁移即可
