@@ -1,8 +1,11 @@
 using Productor.Data;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Polly;
 using Productor.Common;
 using Productor.Model;
 using RestSharp;
@@ -37,6 +40,22 @@ namespace XUnitTest
             var reponse = client.Execute(request);
             var apiResult = JsonConvert.DeserializeObject<ApiResult>(reponse.Content);
             Assert.True(apiResult?.Successed);
+        }
+
+        [Fact]
+        public async Task Test_Retry()
+        {
+            var policy = Policy.Handle<HttpRequestException>().Or<ArgumentNullException>().RetryAsync(3);
+            var result = await policy.ExecuteAsync(GetGoogle);
+            Assert.NotNull(result);
+        }
+
+
+        private async Task<HttpResponseMessage> GetGoogle()
+        {
+            var httpClient = new HttpClient();
+            var result = await httpClient.GetAsync("http://www.google.com");
+            return result;
         }
     }
 }
