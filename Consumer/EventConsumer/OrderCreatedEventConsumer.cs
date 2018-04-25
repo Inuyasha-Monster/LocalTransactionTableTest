@@ -23,6 +23,7 @@ namespace Consumer.EventConsumer
 
         protected override void ConsumeSync(OrderCreatedEvent message)
         {
+            // 拿到rabbitmq消息消费需要持久化,消费失败需要自动重试消费
             _logger.LogDebug(JsonConvert.SerializeObject(message));
         }
     }

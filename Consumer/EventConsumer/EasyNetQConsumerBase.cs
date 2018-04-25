@@ -17,7 +17,7 @@ namespace Consumer.EventConsumer
             }
             catch (Exception exception)
             {
-                Logger.LogError(exception, $"{message.GetType().Name}消息消费者消费错误");
+                Logger.LogError(exception, $"{message.GetType().Name} 消息消费者消费错误");
                 throw;
             }
         }
