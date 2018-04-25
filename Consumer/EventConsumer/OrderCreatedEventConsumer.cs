@@ -10,6 +10,7 @@ using EasyNetQ.Consumer;
 using Message;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Polly;
 
 namespace Consumer.EventConsumer
 {
@@ -37,7 +38,7 @@ namespace Consumer.EventConsumer
             mongoItem.Body = JsonConvert.SerializeObject(message);
             mongoItem.MessageClassFullName = message.GetType().FullName;
             mongoItem.MessageAssemblyName = typeof(OrderCreatedEvent).Assembly.GetName().Name;
-            _mongoDbContext.GuidEventLogs.InsertOne(mongoItem);
+            Policy.Handle<Exception>().Retry(3).Execute(() => _mongoDbContext.GuidEventLogs.InsertOne(mongoItem));
         }
     }
 }

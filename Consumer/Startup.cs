@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Consumer.AutoMapper;
 using Consumer.EasyNetQ;
 using Consumer.Mongo;
 using Consumer.Option;
@@ -27,10 +28,14 @@ namespace Consumer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(x =>
-            {
-                x.AllowNullCollections = true;
-            });
+            // 官方package默认scope
+            //services.AddAutoMapper(x =>
+            //{
+            //    x.AllowNullCollections = true;
+            //});
+
+            // 利用第三方的包实现Singleton模式
+            services.AddAutoMapper(mapperLifetime: ServiceLifetime.Singleton);
 
             services.AddMvc();
 

@@ -12,7 +12,7 @@ namespace Consumer.AutoMapper
     {
         public OrderCreatedEventProfile()
         {
-            this.CreateMap<OrderCreatedEvent, GuidEventLog>();
+            this.CreateMap<OrderCreatedEvent, GuidEventLog>().ForMember(d => d.DatabaseId, s => s.MapFrom(soucre => soucre.Id));
         }
     }
 }
