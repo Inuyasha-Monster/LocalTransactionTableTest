@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -20,6 +21,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Productor.Common;
+using Productor.Config;
 using Productor.Data;
 using Productor.EasyNetQ;
 using Productor.Filter;
@@ -55,6 +57,23 @@ namespace Productor
 
             // 添加进程级别内存缓存
             services.AddMemoryCache();
+
+            var redisConfig = new RedisConfig()
+            {
+                Configuration = Configuration.GetSection("RedisConfig:Configuration").Value,
+                InstanceName = Configuration.GetSection("RedisConfig:InstanceName").Value
+            };
+            services.Configure<RedisConfig>(x =>
+            {
+                x.Configuration = redisConfig.Configuration;
+                x.InstanceName = redisConfig.InstanceName;
+            });
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = redisConfig.Configuration;
+                options.InstanceName = redisConfig.InstanceName;
+            });
 
             var mvcBuilder = services.AddMvc(x =>
             {
@@ -94,6 +113,8 @@ namespace Productor
             services.AddQuartz();
 
             services.AddSingleton<CacheAspectCoreInterceptorAttribute>();
+
+            services.AddSingleton<RedisCacheAspectCoreInterceptorAttribute>();
 
             //将IServiceCollection的服务添加到ServiceContainer容器中
             var container = services.ToServiceContainer();

@@ -6,7 +6,8 @@ namespace Productor.Service
 {
     public interface IOrderService
     {
-        [CacheAspectCoreInterceptor]
+        //[CacheAspectCoreInterceptor]
+        [RedisCacheAspectCoreInterceptor]
         OrderOutput GetOrderInfo(Guid id);
 
         void CreateOrder(OrderInput input);
