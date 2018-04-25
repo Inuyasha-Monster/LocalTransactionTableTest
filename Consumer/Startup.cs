@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Consumer.EasyNetQ;
+using Consumer.Mongo;
 using Consumer.Option;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +27,11 @@ namespace Consumer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(x =>
+            {
+                x.AllowNullCollections = true;
+            });
+
             services.AddMvc();
 
             services.Configure<MongoConfig>(x =>
@@ -32,6 +39,8 @@ namespace Consumer
                 x.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
                 x.Database = Configuration.GetSection("MongoConnection:Database").Value;
             });
+
+            services.AddSingleton<MongoDbContext>();
 
             services.AddEasyNetQ(Configuration.GetConnectionString("RabbitMq"));
         }
