@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Consumer.EasyNetQ;
+using Consumer.Option;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,13 @@ namespace Consumer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.Configure<MongoConfig>(x =>
+            {
+                x.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                x.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            });
+
             services.AddEasyNetQ(Configuration.GetConnectionString("RabbitMq"));
         }
 

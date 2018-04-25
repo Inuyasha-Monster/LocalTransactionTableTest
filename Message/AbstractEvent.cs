@@ -9,9 +9,9 @@ namespace Message
         protected AbstractEvent()
         {
             EventId = Guid.NewGuid();
-            EventCreateTime = DateTime.Now;
+            EventUtcTime = DateTime.UtcNow;
         }
         public Guid EventId { get; set; }
-        public DateTime EventCreateTime { get; set; }
+        public DateTime EventUtcTime { get; set; }
     }
 }
