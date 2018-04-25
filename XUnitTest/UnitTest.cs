@@ -57,5 +57,40 @@ namespace XUnitTest
             var result = await httpClient.GetAsync("http://www.google.com");
             return result;
         }
+
+        [Fact]
+        public async Task Test()
+        {
+            var fuckPolicy = Policy<bool>.Handle<FuckException>().RetryAsync(1);
+            var shitPolicy = Policy<bool>.Handle<ShitException>().FallbackAsync<bool>(x =>
+            {
+                var task = new Task<bool>(() => false);
+                task.Start();
+                return task;
+            });
+            var policy = Policy.WrapAsync(fuckPolicy, shitPolicy);
+
+            var result = await policy.ExecuteAsync(TestFuckAndShit);
+            Console.WriteLine(result);
+        }
+
+        private static async Task<bool> TestFuckAndShit()
+        {
+            var random = new Random();
+            var num = random.Next(100);
+            if (num <= 40)
+                throw new FuckException();
+            else if (num >= 50)
+                throw new ShitException();
+            else
+            {
+                return await Task.Run(() => true);
+            }
+        }
+
     }
+
+    public class FuckException : Exception { }
+    public class ShitException : Exception { }
+
 }

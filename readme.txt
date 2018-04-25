@@ -14,6 +14,6 @@ todo:
 9、集成quartz-ui管理界面
 10、集成hangfire-RAM内存模式测试
 11、集成kafka消息队列测试
-12、关于解析dbmessage通过eventbus发送，做反射优化以及缓存提升性能
+12、关于解析 dbmessage 通过 eventbus 发送，做反射优化以及缓存提升性能
 13、独立出来一个 MessageDbContext 发布nuget package方便使用，在使用migration迁移即可
-14、集成ExceptionLess / ELK 日志集中式处理
+14、集成 ExceptionLess / ELK 日志集中式处理
