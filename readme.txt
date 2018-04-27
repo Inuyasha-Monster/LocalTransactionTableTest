@@ -1,19 +1,19 @@
 todo:
-1¡¢ÊµÏÖserivce·½·¨À¹½Ø£ºCacheÓ¦ÓÃ --ok
+1ã€å®žçŽ°serivceæ–¹æ³•æ‹¦æˆªï¼šCacheåº”ç”¨ --ok
 
-2¡¢´úÂëÕûÀí·ÖÀë Ç¨ÒÆµ½ YiXinFramework --working
+2ã€ä»£ç æ•´ç†åˆ†ç¦» è¿ç§»åˆ° YiXinFramework --working
 
-3¡¢ÊµÏÖ Polly ÖØÊÔÈÝ´í´¦Àí --ok ¼¯³ÉÏûÏ¢ÍÆËÍrabbitmqserverÈÝ´íÓëÏû·ÑÕßÏû·ÑmqÖØÊÔ
+3ã€å®žçŽ° Polly é‡è¯•å®¹é”™å¤„ç† --ok é›†æˆæ¶ˆæ¯æŽ¨é€rabbitmqserverå®¹é”™ä¸Žæ¶ˆè´¹è€…æ¶ˆè´¹mqé‡è¯• Update: å°† Polly é‡è¯•æœºåˆ¶è¿ç§»åˆ° interceptor å½“ä¸­åŽ»ä½œä¸ºå…¬å…±é€»è¾‘
 
-4¡¢ÊµÏÖ·¢ËÍÏûÏ¢´íÎó±¨¾¯½Ó¿ÚÉè¼Æ(´òËãÏÈÊµÏÖÓÊ¼þÌáÐÑ)
+4ã€å®žçŽ°å‘é€æ¶ˆæ¯é”™è¯¯æŠ¥è­¦æŽ¥å£è®¾è®¡(æ‰“ç®—å…ˆå®žçŽ°é‚®ä»¶æé†’)
 
-5¡¢¼¯³É·Ö²¼Ê½»º´æ --ok (redis)
-6¡¢ÆôÓÃÏû·ÑÕß¸ºÔØ¾ùºâ
-7¡¢ÆôÓÃrabbitmq¼¯ÈºÄ£Ê½²âÊÔ
-8¡¢¼¯³É·þÎñ·¢ÏÖºÍÖÎÀí(¶à¸öÉú²úÕß¾ùºâ¸ºÔØ£¬µ«ÊÇÊý¾Ý¿âÄ¿Ç°ÊÇÍ¬Ò»¸öµÄÄ£Ê½)
-9¡¢¼¯³Équartz-ui¹ÜÀí½çÃæ
-10¡¢¼¯³Éhangfire-RAMÄÚ´æÄ£Ê½²âÊÔ
-11¡¢¼¯³ÉkafkaÏûÏ¢¶ÓÁÐ²âÊÔ
-12¡¢¹ØÓÚ½âÎö dbmessage Í¨¹ý eventbus ·¢ËÍ£¬×ö·´ÉäÓÅ»¯ÒÔ¼°»º´æÌáÉýÐÔÄÜ
-13¡¢¶ÀÁ¢³öÀ´Ò»¸ö MessageDbContext ·¢²¼nuget package·½±ãÊ¹ÓÃ£¬ÔÚÊ¹ÓÃmigrationÇ¨ÒÆ¼´¿É
-14¡¢¼¯³É ExceptionLess / ELK ÈÕÖ¾¼¯ÖÐÊ½´¦Àí
+5ã€é›†æˆåˆ†å¸ƒå¼ç¼“å­˜ --ok (redis)
+6ã€å¯ç”¨æ¶ˆè´¹è€…è´Ÿè½½å‡è¡¡
+7ã€å¯ç”¨rabbitmqé›†ç¾¤æ¨¡å¼æµ‹è¯•
+8ã€é›†æˆæœåŠ¡å‘çŽ°å’Œæ²»ç†(å¤šä¸ªç”Ÿäº§è€…å‡è¡¡è´Ÿè½½ï¼Œä½†æ˜¯æ•°æ®åº“ç›®å‰æ˜¯åŒä¸€ä¸ªçš„æ¨¡å¼)
+9ã€é›†æˆquartz-uiç®¡ç†ç•Œé¢
+10ã€é›†æˆhangfire-RAMå†…å­˜æ¨¡å¼æµ‹è¯•
+11ã€é›†æˆkafkaæ¶ˆæ¯é˜Ÿåˆ—æµ‹è¯•
+12ã€å…³äºŽè§£æž dbmessage é€šè¿‡ eventbus å‘é€ï¼Œåšåå°„ä¼˜åŒ–ä»¥åŠç¼“å­˜æå‡æ€§èƒ½
+13ã€ç‹¬ç«‹å‡ºæ¥ä¸€ä¸ª MessageDbContext å‘å¸ƒnuget packageæ–¹ä¾¿ä½¿ç”¨ï¼Œåœ¨ä½¿ç”¨migrationè¿ç§»å³å¯
+14ã€é›†æˆ ExceptionLess / ELK æ—¥å¿—é›†ä¸­å¼å¤„ç†
